@@ -1,9 +1,7 @@
 package grid;
 
 import javax.swing.*;
-
 import cells.*;
-
 import java.awt.GridLayout;
 import java.util.*;
 import main.Game;

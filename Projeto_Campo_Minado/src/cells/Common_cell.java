@@ -26,7 +26,7 @@ public class Common_cell extends JButton{
 		return position;
 	}
 	
-	public boolean isDircovered() {
+	public boolean isDiscovered() {
 		return discovered;
 	}
 	

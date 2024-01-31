@@ -1,11 +1,11 @@
 package handler;
 
-import java.awt.Window;
+
 import java.util.*;
 import cells.*;
 import grid.*;
 import main.Game;
-import javax.swing.*;
+import main.Window;
 
 public class Handler {
 	

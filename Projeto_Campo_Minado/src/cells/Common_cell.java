@@ -4,12 +4,13 @@ import java.awt.event.*;
 import javax.swing.*;
 import handler.*;
 
-public class Common_cell extends JButton {
+public class Common_cell extends JButton implements I_Cell {
 
     private int type;
     private int position;
     private boolean discovered;
     private boolean flagged;
+    private boolean crazyness;
 
     private Handler handler;
 
@@ -37,8 +38,10 @@ public class Common_cell extends JButton {
         });
     }
 
+	public void setType(int type) {
+		this.type = type;	
+	}
     public int getType() {
-        // TYPES -- 0: Empty, 1: Mine, 2: Number
         return type;
     }
 
@@ -46,22 +49,44 @@ public class Common_cell extends JButton {
         return position;
     }
 
-    public boolean isDiscovered() {
-        return discovered;
+    public boolean getDiscovered() {
+        return this.discovered;
     }
 
     public void setDiscovered(boolean d) {
         this.discovered = d;
     }
 
-    public boolean isFlagged() {
-        return flagged;
-    }
-
     public void setFlagged(boolean f) {
         this.flagged = f;
     }
+    
+    public boolean getFlagged() {
+        return this.flagged;
+    }
+    
+    public boolean isEmptyCell()
+    {
+        return false;
+    }
+    
+    public boolean isMine()
+    {
+        return false;
+    }
 
+    public boolean isNearMine()
+    {
+        return false;
+    }
+
+    public boolean isCrazyCell(){
+        return this.crazyness;
+    }
+
+    public void beCrazyCell(){
+        this.crazyness = true;
+    }
     public void clickButton() {
         handler.click(this);
     }
@@ -70,4 +95,6 @@ public class Common_cell extends JButton {
         handler.rightClick(this);
     }
 }
+
+	
 

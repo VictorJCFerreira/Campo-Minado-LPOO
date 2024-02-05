@@ -17,7 +17,7 @@ public class Handler {
 
 	public void click(Common_cell cell) {
 		int discoveredCells = 0;
-        if(!cell.isFlagged()) {
+        if(!cell.getFlagged()) {
             cell.setEnabled(false);
             cell.setDiscovered(true);
 
@@ -139,13 +139,13 @@ public class Handler {
                 for(int x = 0; x < Grid.cellGrid.size(); x++) {
                     Grid.cellGrid.get(x).setEnabled(false);
                     Grid.cellGrid.get(x).setText("");
-                    if(Grid.cellGrid.get(x).getType() == 1) {Grid.cellGrid.get(x).setText("X");}
+                    if(Grid.cellGrid.get(x).getType() == 1) {Grid.cellGrid.get(x).setText("💣");}
                 }
-                cell.setText("*");
+                cell.setText("💣");
             }  
 
             for(int x = 0; x < queue.size(); x++) {
-                if(!queue.get(x).isDiscovered()) {
+                if(!queue.get(x).getDiscovered()) {
                     current.add(queue.get(x));
                     queue.get(x).setDiscovered(true);
                 }
@@ -160,16 +160,16 @@ public class Handler {
             	}
 
             for(int x = 0; x < Grid.cellGrid.size(); x++) {
-                if(Grid.cellGrid.get(x).isDiscovered()) {
+                if(Grid.cellGrid.get(x).getDiscovered()) {
                     discoveredCells++;
                 }
             }
 
-            if(discoveredCells == Grid.cellGrid.size() - Game.MINECOUNT) {
+            if(flaggedCells == Game.MINECOUNT) {
                 for(int x = 0; x < Grid.cellGrid.size(); x++) {
                     if(Grid.cellGrid.get(x).getType() == 1) {
                         Grid.cellGrid.get(x).setEnabled(false);
-                        Grid.cellGrid.get(x).setText("X");
+                        Grid.cellGrid.get(x).setText("💣");
                     } else {
                         Grid.cellGrid.get(x).setEnabled(false);
                         Grid.cellGrid.get(x).setText(":)");
@@ -180,10 +180,10 @@ public class Handler {
         }  
 		
 		public void rightClick(Common_cell cell) {
-	        if(!cell.isDiscovered()) {
-	            if(!cell.isFlagged()) {
+	        if(!cell.getDiscovered()) {
+	            if(!cell.getFlagged()) {
 	                cell.setFlagged(true);
-	                cell.setText("F");
+	                cell.setText("🚩");
 	                flaggedCells++;
 	                Window.update(flaggedCells);
 	            } else {

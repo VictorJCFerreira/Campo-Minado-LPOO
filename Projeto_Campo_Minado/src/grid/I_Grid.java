@@ -4,9 +4,9 @@ public interface I_Grid {
 	    
 	    public abstract void printGrid();
 
-	    public abstract void placeMines();
+	    public abstract void positionMines();
 
-	    public abstract void putMines(int line, int collum);
+	    public abstract void placeMines(int line, int collum);
 
 	    public abstract void hideGrid();
 
@@ -22,6 +22,6 @@ public interface I_Grid {
 
 	    public abstract void setFlag(int line, int collum);
 
-	    public abstract boolean getVisibility(int line, int collum);
+	    public abstract boolean getVisible(int line, int collum);
 
 }

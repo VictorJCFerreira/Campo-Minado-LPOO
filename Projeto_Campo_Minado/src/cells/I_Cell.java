@@ -13,6 +13,10 @@ public interface I_Cell {
     public abstract void setFlagged(boolean flagged);
 
     public abstract boolean getFlagged();
+    
+    public abstract void setFrame(String frame);
+    
+    public abstract String getFrame();
 
     public abstract boolean isEmptyCell();
 

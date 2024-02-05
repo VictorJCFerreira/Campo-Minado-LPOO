@@ -1,8 +1,9 @@
 package main;
 import java.awt.*;
 import javax.swing.*;
+
+import gameLogic.*;
 import grid.Grid;
-import handler.*;
 
 
 public class Window {
@@ -21,7 +22,7 @@ public class Window {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
 
-        JPanel panel = new Grid(new GridLayout(gridSize, gridSize), handler);
+        JPanel panel = new Grid(width, height);
 
         frame.setContentPane(panel);
         frame.pack();

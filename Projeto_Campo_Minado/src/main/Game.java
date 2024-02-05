@@ -1,6 +1,6 @@
 package main;
 
-import handler.*;
+import gameLogic.*;
 
 public class Game {
 	
@@ -8,8 +8,8 @@ public class Game {
 	// Deixar o Tabuleiro e a Janela do jogo decidir isso 
 	
     public static final int WIDTH = 720, HEIGHT = 720;
-    public static final int GRID_SIZE = 15;
-    public static final int MINECOUNT = (int) Math.round(GRID_SIZE * GRID_SIZE * .1);
+    public static final int GRID_SIZE = 10;
+    public static final int MINECOUNT = 15;
     
     // Alteração na parte superior a ser feita
 

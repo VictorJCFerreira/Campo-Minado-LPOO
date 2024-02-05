@@ -2,24 +2,26 @@ package cells;
 
 import java.awt.event.*;
 import javax.swing.*;
-import handler.*;
 
+import gameLogic.*;
+
+@SuppressWarnings("serial")
 public class Common_cell extends JButton implements I_Cell {
 
     private int type;
-    private int position;
     private boolean discovered;
     private boolean flagged;
     private boolean crazyness;
+    private String frame;
 
     private Handler handler;
 
-    public Common_cell(int type, int position, boolean discovered, boolean flagged, Handler handler) {
-        this.type = type;
-        this.position = position;
-        this.discovered = discovered;
-        this.flagged = flagged;
-        this.handler = handler;
+    public Common_cell() {
+    	
+        this.type = 0; // TYPES -- 0: Empty or Common, 1: Mine, 2: NearCell, 3: CrazyCell
+        this.discovered = false;
+        this.flagged = false;
+        this.frame = "$";
 
         addMouseListener(new MouseListener() {
             @Override
@@ -36,64 +38,83 @@ public class Common_cell extends JButton implements I_Cell {
             public void mousePressed(MouseEvent e) {}
             public void mouseReleased(MouseEvent e) {}
         });
+        
     }
 
+    public void clickButton() {
+        handler.click(this);
+    }
+
+    
+    public void rightClickButton() {
+        handler.rightClick(this);
+    }
+    
 	public void setType(int type) {
 		this.type = type;	
 	}
+	
+	
     public int getType() {
         return type;
     }
 
-    public int getPosition() {
-        return position;
-    }
-
+    
     public boolean getDiscovered() {
         return this.discovered;
     }
 
+    
     public void setDiscovered(boolean d) {
         this.discovered = d;
     }
 
+    
     public void setFlagged(boolean f) {
         this.flagged = f;
     }
+    
     
     public boolean getFlagged() {
         return this.flagged;
     }
     
-    public boolean isEmptyCell()
-    {
+    
+    public void setFrame(String frame) {
+    	this.frame = frame;
+    }
+    
+    
+    public String getFrame() {
+    	return this.frame;
+    }
+    
+    
+    public boolean isEmptyCell(){
         return false;
     }
     
-    public boolean isMine()
-    {
+    
+    public boolean isMine(){
         return false;
     }
 
-    public boolean isNearMine()
-    {
+    
+    public boolean isNearMine() {
         return false;
     }
 
+    
     public boolean isCrazyCell(){
         return this.crazyness;
     }
 
-    public void beCrazyCell(){
+    
+    public void changeToCrazyCell(){
         this.crazyness = true;
     }
-    public void clickButton() {
-        handler.click(this);
-    }
-
-    public void rightClickButton() {
-        handler.rightClick(this);
-    }
+    
+    
 }
 
 	

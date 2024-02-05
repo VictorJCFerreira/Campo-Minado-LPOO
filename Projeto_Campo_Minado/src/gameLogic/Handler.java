@@ -1,4 +1,4 @@
-package handler;
+package gameLogic;
 
 
 import java.util.*;
@@ -21,7 +21,7 @@ public class Handler {
             cell.setEnabled(false);
             cell.setDiscovered(true);
 
-            int position = cell.getPosition();
+            int position = cell.getType();
             if(cell.getType() == 0) {
                 if(position < Game.GRID_SIZE) {
                     if(position % Game.GRID_SIZE == 0) {

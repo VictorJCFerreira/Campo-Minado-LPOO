@@ -1,26 +1,22 @@
 package cells;
 
-@SuppressWarnings("serial")
-public class Empty_cell extends Common_cell {
-
-	public Empty_cell() {
-		super();
-		setFrame("0");
-	}
+public class Empty_cell extends Basic_cell {
 	
-	public boolean isEmptyCell()
-    {
-        return true;
-    }
-    
-    public boolean isMine()
-    {
-        return false;
-    }
+	public Empty_cell(int line, int collum) {
+		super(line, collum);
+		setContent("0");
+	}
 
-    public boolean isNearMine()
-    {
-        return false;
-    }
+	
+	@Override
+	public boolean getIsEmptyCell() {
+		return true;
+	}
+
+	
+	@Override
+	public boolean getIsMine() {
+		return false;
+	}
 
 }

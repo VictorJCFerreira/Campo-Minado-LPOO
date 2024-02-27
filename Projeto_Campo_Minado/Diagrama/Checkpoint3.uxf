@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1.0">
+  <zoom_level>4</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>36</x>
+      <y>56</y>
+      <w>180</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>grid::Grid
+--
+-bounds = Game.GRID_SIZE * Game.GRID_SIZE: int
+-picked = false: boolean
+-mines = new ArrayList&lt;Integer&gt;(): ArrayList&lt;Integer&gt;
++cellGrid = new ArrayList&lt;Common_cell&gt;(): ArrayList&lt;Common_cell&gt;
+-grid: Common_cell[][]
+-dimension: int
+-mine: int
+-craziness: int
+--
++Grid(int dimension, int mine): ctor
++VGrid(GridLayout g, Handler h): void
+-createCells(Handler h): void
+-addCells(): void
++getDimensao(): int
++getMinas(): int
++getGrid(): Common_cell[][]
++printGrid(): void
++positionMines(): void
++placeMines(int line, int collum): void
++hideGrid(): void
++revealGrid(): void
++revealCells(int line, int collum): void
++checkMines(int line, int collum): boolean
++revealMines(): void
++checkWin(): boolean
++setFlag(int linha, int coluna): void
++placeCrazyness(int crazyLevel): void
++getCraziness(): int
++crazyCell(int line, int collum): boolean
++getVisible(int line, int collum): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>220</x>
+      <y>56</y>
+      <w>88</w>
+      <h>172</h>
+    </coordinates>
+    <panel_attributes>cells::Common_cell
+--
+-type: int
+-discovered: boolean
+-flagged: boolean
+-crazyness: boolean
+-frame: String
+-handler: Handler
+--
++Common_cell(): ctor
++clickButton(): void
++rightClickButton(): void
++setType(int type): void
++getType(): int
++getDiscovered(): boolean
++setDiscovered(boolean d): void
++setFlagged(boolean f): void
++getFlagged(): boolean
++setFrame(String frame): void
++getFrame(): String
++isEmptyCell(): boolean
++isMine(): boolean
++isNearMine(): boolean
++isCrazyCell(): boolean
++changeToCrazyCell(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>312</x>
+      <y>56</y>
+      <w>112</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+cells::I_Cell
+--
+--
++setType(int type): void
++getType(): int
++setDiscovered(boolean discovered): void
++getDiscovered(): boolean
++setFlagged(boolean flagged): void
++getFlagged(): boolean
++setFrame(String frame): void
++getFrame(): String
++isEmptyCell(): boolean
++isMine(): boolean
++isNearMine(): boolean
++isCrazyCell(): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>428</x>
+      <y>56</y>
+      <w>108</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+grid::I_Grid
+--
+--
++printGrid(): void
++positionMines(): void
++placeMines(int line, int collum): void
++hideGrid(): void
++revealGrid(): void
++revealCells(int line, int collum): void
++checkMines(int line, int collum): boolean
++revealMines(): void
++checkWin(): boolean
++setFlag(int line, int collum): void
++getVisible(int line, int collum): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>36</x>
+      <y>280</y>
+      <w>92</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>main::Game
+--
++WIDTH = 720, HEIGHT = 720: int
++GRID_SIZE = 10: int
++MINECOUNT = 15: int
+-handler = new Handler(): Handler
+--
++Game(): ctor
++main(String[] args): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>132</x>
+      <y>280</y>
+      <w>176</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>gameLogic::Handler
+--
+-current = new ArrayList&lt;Common_cell&gt;(): ArrayList&lt;Common_cell&gt;
+-queue = new ArrayList&lt;Common_cell&gt;(): ArrayList&lt;Common_cell&gt;
+-flaggedCells = 0: int
+--
++click(Common_cell cell): void
++rightClick(Common_cell cell): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>312</x>
+      <y>280</y>
+      <w>68</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>cells::Empty_cell
+--
+--
++Empty_cell(): ctor
++isEmptyCell(): boolean
++isMine(): boolean
++isNearMine(): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>384</x>
+      <y>280</y>
+      <w>68</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>cells::Mine_cell
+--
+--
++Mine_cell(): ctor
++isEmptyCell(): boolean
++isMine(): boolean
++isNearMine(): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>36</x>
+      <y>348</y>
+      <w>64</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>cells::NearMine_cell
+--
+--
++NearMine_cell(): ctor
++isEmptyCell(): boolean
++isMine(): boolean
++isNearMine(): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>104</x>
+      <y>348</y>
+      <w>228</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>main::Window
+--
+-frame: JFrame
+-title: String
+--
++Window(int width, int height, int gridSize, String title, Game game, Handler handler): ctor
++update(int flagged): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>336</x>
+      <y>348</y>
+      <w>52</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>grid::Grid_easy
+--
+--
++Grid_easy(): ctor
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>392</x>
+      <y>348</y>
+      <w>52</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>grid::Grid_hard
+--
+--
++Grid_hard(): ctor
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>36</x>
+      <y>400</y>
+      <w>60</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>grid::Grid_medium
+--
+--
++Grid_medium(): ctor
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

@@ -3,11 +3,8 @@ package windows;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
-
-import grid.A_Grid;
-import grid.Grid;
-import rank.Player;
+import grid.*;
+import rank.*;
 
 public class W_MainMenu extends JFrame implements ActionListener {
 
@@ -24,9 +21,11 @@ public class W_MainMenu extends JFrame implements ActionListener {
     private Grid grid;
     private Grid_Window gridWindow;
     private boolean twoPOption = false;
+    private boolean crazy = false;
     private Player player;
     
-    private ImageIcon playerIcon = new ImageIcon("");
+    private ImageIcon playerIcon = new ImageIcon("src/images/1(1).png");
+    private ImageIcon mineIcon = new ImageIcon("src/images/mine.png");
    
 
     public W_MainMenu(String title) {
@@ -48,7 +47,7 @@ public class W_MainMenu extends JFrame implements ActionListener {
         
         upperPanel = new JPanel();
         upperPanel.setBackground(Color.WHITE);
-        upperPanel.setPreferredSize(new Dimension(0, 70));
+        upperPanel.setPreferredSize(new Dimension(0, 80));
         upperPanel.add(upperLabel);
         
         midPanel = new JPanel(new GridBagLayout());
@@ -56,7 +55,7 @@ public class W_MainMenu extends JFrame implements ActionListener {
         GridBagConstraints gbc = new GridBagConstraints();
         
         easyButton = new JButton("Easy");
-        easyButton.setFont(new Font("Arial", Font.PLAIN, 31));
+        easyButton.setFont(new Font("Arial", Font.PLAIN, 30));
         easyButton.setBackground(Color.WHITE);
         easyButton.setPreferredSize(new Dimension(200, 100));
         easyButton.setFocusable(false);
@@ -67,7 +66,7 @@ public class W_MainMenu extends JFrame implements ActionListener {
         midPanel.add(easyButton, gbc);
         
         mediumButton = new JButton("Medium");
-        mediumButton.setFont(new Font("Arial", Font.PLAIN, 31));
+        mediumButton.setFont(new Font("Arial", Font.PLAIN, 30));
         mediumButton.setBackground(Color.WHITE);
         mediumButton.setPreferredSize(new Dimension(200, 100));
         mediumButton.setFocusable(false);
@@ -78,7 +77,7 @@ public class W_MainMenu extends JFrame implements ActionListener {
         midPanel.add(mediumButton, gbc);
         
         hardButton = new JButton("Hard");
-        hardButton.setFont(new Font("Arial", Font.PLAIN, 31));
+        hardButton.setFont(new Font("Arial", Font.PLAIN, 30));
         hardButton.setBackground(Color.WHITE);
         hardButton.setPreferredSize(new Dimension(200, 100));
         hardButton.setFocusable(false);
@@ -89,7 +88,7 @@ public class W_MainMenu extends JFrame implements ActionListener {
         midPanel.add(hardButton, gbc);
         
         crazyButton = new JButton("Crazy Mode");
-        crazyButton.setFont(new Font("Arial", Font.PLAIN, 31));
+        crazyButton.setFont(new Font("Arial", Font.PLAIN, 30));
         crazyButton.setBackground(Color.WHITE);
         crazyButton.setPreferredSize(new Dimension(200, 100));
         crazyButton.setFocusable(false);
@@ -99,7 +98,7 @@ public class W_MainMenu extends JFrame implements ActionListener {
         midPanel.add(crazyButton, gbc);
         
         twoPButton = new JButton("Two Player");
-        twoPButton.setFont(new Font("Arial", Font.PLAIN, 31));
+        twoPButton.setFont(new Font("Arial", Font.PLAIN, 30));
         twoPButton.setBackground(Color.WHITE);
         twoPButton.setPreferredSize(new Dimension(200, 100));
         twoPButton.setFocusable(false);
@@ -109,7 +108,7 @@ public class W_MainMenu extends JFrame implements ActionListener {
         midPanel.add(twoPButton, gbc);
         
         rankButton = new JButton("Rank");
-        rankButton.setFont(new Font("Arial", Font.PLAIN, 31));
+        rankButton.setFont(new Font("Arial", Font.PLAIN, 30));
         rankButton.setBackground(Color.WHITE);
         rankButton.setPreferredSize(new Dimension(200, 100));
         rankButton.setFocusable(false);
@@ -119,6 +118,7 @@ public class W_MainMenu extends JFrame implements ActionListener {
         midPanel.add(rankButton, gbc);
         
         this.setResizable(false);
+        this.setIconImage(mineIcon.getImage());
         this.setLocationRelativeTo(null);
         this.add(upperPanel, BorderLayout.NORTH);
         this.add(midPanel, BorderLayout.CENTER);
@@ -138,9 +138,14 @@ public class W_MainMenu extends JFrame implements ActionListener {
 	    		 String name = (String) JOptionPane.showInputDialog(null, "Name:", "Player", JOptionPane.PLAIN_MESSAGE, playerIcon, null, null);
 	             this.player = new Player(name);
 	             if (name != null) {
+	            	 
 	            	 int sides = 9;
-	            	 int mines = 10;
+	            	 int mines = 11;
 	            	 this.grid = new Grid(mines,sides,sides);
+	            	 
+	            	 gridWindow = new Grid_Window(grid, this.player, twoPOption, crazy);
+	      			gridWindow.setVisible(true);
+	      	        this.dispose();
 	            	 
 	             }
 	            
@@ -151,9 +156,14 @@ public class W_MainMenu extends JFrame implements ActionListener {
 	        	String name = (String) JOptionPane.showInputDialog(null, "Name:", "Player", JOptionPane.PLAIN_MESSAGE, playerIcon, null, null);
 	             this.player = new Player(name);
 	             if (name != null) {
+	            	 
 	            	 int sides = 12;
-	            	 int mines = 20;
+	            	 int mines = 17;
 	            	 this.grid = new Grid(mines,sides,sides);
+	            	 
+	            	 gridWindow = new Grid_Window(grid, this.player, twoPOption, crazy);
+	      			gridWindow.setVisible(true);
+	      	        this.dispose();
 	            	 
 	             }
         
@@ -164,12 +174,15 @@ public class W_MainMenu extends JFrame implements ActionListener {
 				
 				String name = (String) JOptionPane.showInputDialog(null, "Name:", "Player", JOptionPane.PLAIN_MESSAGE, playerIcon, null, null);
 	             this.player = new Player(name);	
-	             
 	             if (name != null) {
-	            	 
+
 	            	 int sides = 15;
-	            	 int mines = 30;
+	            	 int mines = 35;
 	            	 this.grid = new Grid(mines,sides,sides);
+	            	 
+	            	gridWindow = new Grid_Window(grid, this.player, twoPOption, crazy);
+	      			gridWindow.setVisible(true);
+	      	        this.dispose();
 	            	 
 	             }
 				            
@@ -177,9 +190,15 @@ public class W_MainMenu extends JFrame implements ActionListener {
 			
 			if (e.getSource() == crazyButton) {
 				
-	            	 int sides = 12;
-	            	 int mines = 14;
+	            	 int sides = 15;
+	            	 int mines = 27;
 	            	 this.grid = new Grid(mines,sides,sides);
+	            	 this.grid.setCrazyGrid(5);
+	            	 this.crazy = true;
+	            	 
+	            	gridWindow = new Grid_Window(grid, this.player, twoPOption, crazy);
+	      			gridWindow.setVisible(true);
+	      	        this.dispose();
 	            	
 	            
 	        }
@@ -187,9 +206,13 @@ public class W_MainMenu extends JFrame implements ActionListener {
 			if (e.getSource() == twoPButton) {
 				
 	            	 int sides = 15;
-	            	 int mines = 30;
+	            	 int mines = 27;
 	            	 this.grid = new Grid(mines,sides,sides); 
 	            	 this.twoPOption = true;
+	            	 
+	            	gridWindow = new Grid_Window(grid, this.player, twoPOption, crazy);
+	      			gridWindow.setVisible(true);
+	      	        this.dispose();
 	            	 
 	            	 
 			}
@@ -198,9 +221,7 @@ public class W_MainMenu extends JFrame implements ActionListener {
 	        	new Rank_Window();
 	        }
 	        
-	        gridWindow = new Grid_Window(grid, this.player, twoPOption);
- 			gridWindow.setVisible(true);
- 	        this.dispose();
+	        
 	        
     }
 }

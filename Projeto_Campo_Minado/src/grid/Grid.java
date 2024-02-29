@@ -7,7 +7,7 @@ public class Grid extends A_Grid {
 		createCells(this.lines, this.cols);
 		createEmptyCells();  
 		setMines();
-		setSurroundingMinesNumber();
+		setSurroundingNumbers();
 	}
 
 }

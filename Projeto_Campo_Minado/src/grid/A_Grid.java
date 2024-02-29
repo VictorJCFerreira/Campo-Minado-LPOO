@@ -1,8 +1,6 @@
 package grid;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+import java.util.*;
 import Exceptions.*;
 import cells.*;
 
@@ -21,7 +19,6 @@ public abstract class A_Grid {
         this.cols = cols;
         this.numberOfMines = numberOfMines;
         cells = new Basic_cell[lines][cols];
-        this.clickedPositions = new ArrayList<ArrayList<Integer>>();
 
         createEmptyCells();  
 
@@ -35,11 +32,11 @@ public abstract class A_Grid {
 	}
 	
 	public void createCells(int lines, int cols){
-        this.cells = new Basic_cell[lines][cols];
-        for(int i=0; i<lines; i++){
-            this.cells[i] = new Basic_cell[cols]; 
-        }
-     
+		for(int i = 0; i < lines ; i++){
+	        for(int j = 0; j < cols; j++){
+	            cells[i][j] = new Basic_cell(lines,cols);
+	        }
+	        }
     }
 
 	public void createEmptyCells()
@@ -53,7 +50,7 @@ public abstract class A_Grid {
         }
     }
 	
-	public void printTabuleiro()
+	public void printGrid()
     {
         for(int i = 0; i < lines; i++){
         for(int j = 0; j < cols; j++){
@@ -118,10 +115,10 @@ public abstract class A_Grid {
        
 	        for(int i = line - 1; i <= line + 1; i++){
 		        for(int j = col - 1; j <= col + 1; j++){
-		            if(i >= 0 && i < line && j >= 0 && j < line && !(cells[i][j].getIsMine()) && !(cells[i][j].getVisibility())){
+		            if(i >= 0 && i < lines && j >= 0 && j < cols && !(cells[i][j].getIsMine()) && !(cells[i][j].getVisibility())){
 		                cells[i][j].setVisibility(true);
 		
-		                if(cells[i][j].getIsEmptyCell() && i >=0 && i < line && j >= 0 && j < line)
+		                if(cells[i][j].getIsEmptyCell() && i >=0 && i < lines && j >= 0 && j < cols)
 		                {
 		                	revealCells(i,j);
 		                }
@@ -179,6 +176,41 @@ public abstract class A_Grid {
         return neighbours;
 	}
 
+	public void setSurroundingNumbers()
+    {
+        int neighbours = 0;
+        
+        for(int i = 0; i < lines ; i++){
+        for(int j = 0; j < cols ; j++){
+        	neighbours = 0;
+ 
+        for(int line = i - 1; line <= i + 1; line++){
+        for(int col = j - 1; col <= j + 1; col++){
+
+            
+	            if(line >= 0 && line < lines && col >= 0 && col < cols && (line != i || col != j) && !(cells[i][j].getIsMine()))
+	            {
+	                if(cells[line][col].getIsMine())
+	                {
+	                	neighbours++;
+	                }
+	            }
+
+        	}
+		    }
+		        
+			        if(neighbours > 0){
+			        NearBy_cell number = new NearBy_cell(lines,cols,neighbours);
+			        String neighboursString = Integer.toString(neighbours);
+			        number.setState(neighbours);
+			        number.setContent(neighboursString);
+			        cells[i][j] = number;
+			        }
+		
+		        }
+        	}
+    }
+	
 	private int makeValidCoordinateX(int i) {
 		
         if (i < 0)
@@ -200,35 +232,32 @@ public abstract class A_Grid {
     }
 	
 	public void updateNeighbours() {
-        int contador = 0;
-        
-        
+        int neighbours = 0;
        
         for(int i = 0; i < lines ; i++){
             for(int j = 0; j < cols ; j++){
-                contador = 0;
-                
+            	neighbours = 0;
                
-                for(int linha = i - 1; linha <= i + 1; linha++){
-                    for(int coluna = j - 1; coluna <= j + 1; coluna++){
+                for(int line = i - 1; line <= i + 1; line++){
+                    for(int col = j - 1; col <= j + 1; col++){
 
                            
-                            if(linha >= 0 && linha < lines && coluna >= 0 && coluna < cols && (linha != i || coluna != j) && !(cells[i][j].getIsMine()))
+                            if(line >= 0 && line < lines && col >= 0 && col < cols && (line != i || col != j) && !(cells[i][j].getIsMine()))
                             {
-                                if(cells[linha][coluna].getIsMine())
+                                if(cells[line][col].getIsMine())
                                 {
-                                    contador++;
+                                	neighbours++;
                                 }
                             }
 
                         }
                     }
                     
-                if(contador > 0 && !cells[i][j].getIsMine()){
+                if(neighbours > 0 && !cells[i][j].getIsMine()){
 
-                    String contadorString = Integer.toString(contador);
-                    cells[i][j].setState(contador);
-                    cells[i][j].setContent(contadorString);
+                    String neighboursString = Integer.toString(neighbours);
+                    cells[i][j].setState(neighbours);
+                    cells[i][j].setContent(neighboursString);
                 }
                 
             }
@@ -303,7 +332,34 @@ public abstract class A_Grid {
         return numberOfMines;
     }
 
-    public A_Cell[][] getCells()
+    public int getCrazyGrid() {
+		return crazy;
+	}
+
+    public void setCrazyGrid(int crazy)
+    {
+        this.crazy = crazy;
+        Random random = new Random();
+
+        for(int i = 0; i < this.lines; i++)
+        for(int j = 0; j < this.cols; j++)
+        {
+        	{
+	            int chance = random.nextInt(11);
+	            if(chance <= crazy)
+	            {
+	                cells[i][j].beCrazy();
+	            }
+        	}
+        }
+    }
+    
+    public boolean crazyCell(int line, int col)
+    {
+        return cells[line][col].getCrazy();
+    }
+
+	public Basic_cell[][] getCells()
     {
         return cells;
     }

@@ -31,65 +31,66 @@ public class GameOver_Window extends JFrame implements ActionListener{
     private JPanel topPanel;
     private JLabel upperLabel;
     private JLabel centralLabel;
-    private Grid_Window playGrid;
     private int x;
     private int y;
     private int points;
     private JFrame gridFrame;
     private Player player;
-
-    ImageIcon bomberIcon = new ImageIcon("images/bomber.png");
+    private int choice;
+    private Grid_Window gridWindow;
     
-    public GameOver_Window(Player player,int points, JFrame gridFrame, int resto,int choice) {
+    private ImageIcon mineIcon = new ImageIcon("src/images/mine.png");
+    
+    public GameOver_Window(Player player,int points, JFrame gridFrame, int rest,int choice, Grid_Window gridWindow) {
     	if(choice == 1) {
     		this.gridFrame = gridFrame;
             this.points = points;
             this.player = player;
+            this.gridWindow = gridWindow;
+            this.choice = choice;
 
             this.x = getToolkit().getScreenSize().width;
             this.y = getToolkit().getScreenSize().height;
 
             this.setLocation((x/2)-250, (y/2)-100);
             
-            this.setSize(500,240);
+            this.setSize(520,250);
             this.setResizable(false);
             this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             
             gameOverLabel = new JLabel("GAME OVER!");
-            gameOverLabel.setFont(new Font("Comic Sans MS",Font.BOLD, 70));
-            gameOverLabel.setForeground(Color.white);
+            gameOverLabel.setFont(new Font("Arial",Font.BOLD, 70));
+            gameOverLabel.setForeground(Color.yellow);
             gameOverLabel.setHorizontalAlignment(JLabel.CENTER);
             gameOverLabel.setVerticalAlignment(JLabel.CENTER);
 
-            pointsLabel = new JLabel("Pontuação : " + this.points);
-            pointsLabel.setFont(new Font("Comic Sans MS",Font.PLAIN, 35));
-            pointsLabel.setForeground(new Color(255,184,28));
+            pointsLabel = new JLabel("SCORE : " + this.points);
+            pointsLabel.setFont(new Font("Arial",Font.PLAIN, 40));
+            pointsLabel.setForeground(Color.yellow);
             pointsLabel.setHorizontalAlignment(JLabel.CENTER);
             pointsLabel.setVerticalAlignment(JLabel.CENTER);
 
-            button = new JButton("ok");
-            button.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
+            button = new JButton("OK");
+            button.setFont(new Font("Arial", Font.PLAIN, 30));
             button.setFocusable(false);
             button.setPreferredSize(new Dimension(100,50));
-            button.setBorder(BorderFactory.createLineBorder(Color.black, 5));
-            button.setBackground(Color.lightGray);
+            button.setBackground(Color.yellow);
             button.addActionListener(this);
 
             buttonPanel = new JPanel();
             buttonPanel.setPreferredSize(new Dimension(170,0));
-            buttonPanel.setBackground(Color.RED);
+            buttonPanel.setBackground(Color.black);
             buttonPanel.add(Box.createRigidArea(new Dimension(0,90)));
             buttonPanel.add(button);
 
             panel = new JPanel(new BorderLayout());
-            panel.setBackground(Color.red);
+            panel.setBackground(Color.black);
             panel.add(gameOverLabel,BorderLayout.NORTH);
             panel.add(pointsLabel,BorderLayout.CENTER);
             panel.add(buttonPanel,BorderLayout.EAST); 
             
-            this.setIconImage(bomberIcon.getImage());
+            this.setIconImage(mineIcon.getImage());
             this.add(panel);
-            //this.setUndecorated(true);
             this.setVisible(true);
     		
     		
@@ -99,26 +100,20 @@ public class GameOver_Window extends JFrame implements ActionListener{
             int y = Toolkit.getDefaultToolkit().getScreenSize().height;
 
             this.setLocation((x/2) - 200,(y/2) - 100);
-            this.setSize(400,200);
+            this.setSize(500,250);
             this.setResizable(false);
-            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-            this.setIconImage(bomberIcon.getImage());
             this.gridFrame = gridFrame;
-
-            Border bordaDourada = BorderFactory.createLineBorder(new Color(255,184,28), 2);
 
             centralPanel = new JPanel();
             centralPanel.setBackground(Color.black);
-            centralPanel.setBorder(bordaDourada);
 
             topPanel = new JPanel(new BorderLayout());
 
             upperLabel = new JLabel();
-            upperLabel.setFont(new Font("Comic Sans MS",Font.PLAIN,30));
+            upperLabel.setFont(new Font("Arial",Font.PLAIN,30));
             upperLabel.setForeground(Color.white);
             upperLabel.setOpaque(true);
             upperLabel.setBackground(Color.black);
-            upperLabel.setBorder(bordaDourada);
             upperLabel.setHorizontalAlignment(JLabel.CENTER);
             upperLabel.setVerticalAlignment(JLabel.CENTER);
 
@@ -126,26 +121,24 @@ public class GameOver_Window extends JFrame implements ActionListener{
             centralLabel.setHorizontalAlignment(JLabel.CENTER);
             centralLabel.setVerticalAlignment(JLabel.CENTER);
 
-            if(resto == 1){
-                upperLabel.setText("Vitória do Player 1!");
-                upperLabel.setForeground(new Color(0,162,232));
-                //centralLabel.setIcon(player1x50Icon);    
+            if(rest == 1){
+                upperLabel.setText("PLAYER 1 WON!");
+                upperLabel.setForeground(new Color(0,162,232));  
             }
-            else if(resto == 0){
+            else if(rest == 0){
 
-                upperLabel.setText("Vitória do Player 2!");
+                upperLabel.setText("PLAYER 2 WON!");
                 upperLabel.setForeground(new Color(237,28,36));
-                //centralLabel.setIcon(player2x50Icon);    
+                   
             }
 
-            button = new JButton("jóia!");
+            button = new JButton("OK");
             button.addActionListener(this);
             button.setFocusable(false);
-            button.setFont(new Font("Comic Sans MS",Font.PLAIN,20));
+            button.setFont(new Font("Arial",Font.PLAIN,20));
             button.setPreferredSize(new Dimension(120,60));
             button.setForeground(Color.white);
-            button.setBackground(Color.black);
-            button.setBorder(BorderFactory.createLineBorder(new Color(255,184,28), 4));
+            button.setBackground(Color.gray);
 
             topPanel.add(upperLabel);
             centralPanel.add(centralLabel);
@@ -157,8 +150,47 @@ public class GameOver_Window extends JFrame implements ActionListener{
             upperLabel.setVerticalAlignment(JLabel.CENTER);
             upperLabel.setHorizontalTextPosition(SwingConstants.LEFT);
 
+            this.setIconImage(mineIcon.getImage());
             this.add(upperLabel, BorderLayout.NORTH);
             this.add(centralPanel, BorderLayout.CENTER);
+            this.setVisible(true);
+    		
+    	} else if (choice == 3) {
+    		this.x = getToolkit().getScreenSize().width;
+            this.y = getToolkit().getScreenSize().height;
+
+            this.setLocation((x/2)-250, (y/2)-100);
+            
+            this.setSize(520,250);
+            this.setResizable(false);
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            
+            gameOverLabel = new JLabel("GAME OVER!");
+            gameOverLabel.setFont(new Font("Arial",Font.BOLD, 70));
+            gameOverLabel.setForeground(Color.yellow);
+            gameOverLabel.setHorizontalAlignment(JLabel.CENTER);
+            gameOverLabel.setVerticalAlignment(JLabel.CENTER);
+            
+            button = new JButton("OK");
+            button.setFont(new Font("Arial", Font.PLAIN, 30));
+            button.setFocusable(false);
+            button.setPreferredSize(new Dimension(100,50));
+            button.setBackground(Color.yellow);
+            button.addActionListener(this);
+
+            buttonPanel = new JPanel();
+            buttonPanel.setPreferredSize(new Dimension(170,0));
+            buttonPanel.setBackground(Color.black);
+            buttonPanel.add(Box.createRigidArea(new Dimension(0,90)));
+            buttonPanel.add(button);
+
+            panel = new JPanel(new BorderLayout());
+            panel.setBackground(Color.black);
+            panel.add(gameOverLabel,BorderLayout.NORTH);
+            panel.add(buttonPanel,BorderLayout.EAST); 
+            
+            this.setIconImage(mineIcon.getImage());
+            this.add(panel);
             this.setVisible(true);
     		
     	}
@@ -166,21 +198,25 @@ public class GameOver_Window extends JFrame implements ActionListener{
     	
     }
     
-    
-    public void actionPerformed1(ActionEvent e){
-        if(e.getSource() == button){
-            this.dispose();
-            this.gridFrame.dispose();
-            this.player.setPoints(points);
-            new Scoreboard(this.player);
-        }
-    }
-    
-
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == button){
-            this.dispose();
+            
+            if(choice == 1) {
+            	this.dispose();
+            	this.gridFrame.dispose();
+            	this.player.setPoints(points);
+                new Scoreboard(this.player);
+                
+            } else if (choice == 2) {
+            	this.gridWindow.dispose();
+            	this.gridWindow.dispose();
+            } else {
+            	this.dispose();
+            }
+            
+            
         }
     }
+    
 }

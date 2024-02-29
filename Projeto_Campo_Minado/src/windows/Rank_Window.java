@@ -3,13 +3,13 @@ package windows;
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import rank.Scoreboard;
 
 public class Rank_Window extends JFrame {
 
     private JLabel[] positionsLabels;
+    private JLabel[] spaceLabel;
     private JLabel[] namesLabels;
     private JLabel[] pointsLabels;
     private JLabel upperLaber;
@@ -19,8 +19,8 @@ public class Rank_Window extends JFrame {
     private Scoreboard ranked = new Scoreboard();
     private ArrayList<String> names;
     private ArrayList<String> points;
-
-    //icons
+    
+    private ImageIcon mineIcon = new ImageIcon("src/images/mine.png");
     
     public Rank_Window() {
         
@@ -55,27 +55,37 @@ public class Rank_Window extends JFrame {
 
         if (names.size() < 5) {
             positionsLabels = new JLabel[names.size()];
+            spaceLabel = new JLabel[names.size()];
             namesLabels = new JLabel[names.size()];
             pointsLabels = new JLabel[names.size()];
         } else {
             positionsLabels = new JLabel[5];
+            spaceLabel = new JLabel[5];
             namesLabels = new JLabel[5];
             pointsLabels = new JLabel[5];
         }
 
         for (int i = 0; i < positionsLabels.length; i++) {
-            positionsLabels[i] = new JLabel(Integer.toString(i + 1));
+            positionsLabels[i] = new JLabel("  " + Integer.toString(i + 1));
             positionsLabels[i].setFont(new Font("Arial", Font.PLAIN, 20));
             positionsLabels[i].setHorizontalAlignment(JLabel.CENTER);
-            positionsLabels[i].setForeground(Color.WHITE);
+            positionsLabels[i].setForeground(Color.BLACK);
             positionsLabels[i].setAlignmentX(CENTER_ALIGNMENT);
 
             leftPanel.add(positionsLabels[i]);
+            
+            spaceLabel[i] = new JLabel("");
+            spaceLabel[i].setFont(new Font("Arial", Font.PLAIN, 20));
+            spaceLabel[i].setHorizontalAlignment(JLabel.CENTER);
+            spaceLabel[i].setForeground(Color.BLACK);
+            spaceLabel[i].setAlignmentX(CENTER_ALIGNMENT);
+            
+            leftPanel.add(spaceLabel[i]);
 
             namesLabels[i] = new JLabel(names.get(i));
             namesLabels[i].setFont(new Font("Arial", Font.PLAIN, 20));
             namesLabels[i].setHorizontalAlignment(JLabel.CENTER);
-            namesLabels[i].setForeground(Color.WHITE);
+            namesLabels[i].setForeground(Color.BLACK);
             namesLabels[i].setAlignmentX(CENTER_ALIGNMENT);
 
             centralPanel.add(namesLabels[i]);
@@ -83,13 +93,13 @@ public class Rank_Window extends JFrame {
             pointsLabels[i] = new JLabel(points.get(i) + " pts");
             pointsLabels[i].setFont(new Font("Arial", Font.PLAIN, 20));
             pointsLabels[i].setHorizontalAlignment(JLabel.CENTER);
-            pointsLabels[i].setForeground(new Color(255,184,28));
+            pointsLabels[i].setForeground(new Color(0,193,108));
             pointsLabels[i].setAlignmentX(CENTER_ALIGNMENT);
 
             centralPanel.add(pointsLabels[i]);
         }
 
-
+        this.setIconImage(mineIcon.getImage());
         this.setLayout(new BorderLayout());
         this.add(centralPanel, BorderLayout.CENTER);
         this.add(topPanel, BorderLayout.NORTH);

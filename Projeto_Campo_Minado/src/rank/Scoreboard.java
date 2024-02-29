@@ -28,32 +28,32 @@ public class Scoreboard {
         this.input = new InputStreamReader(file); 
         this.reader = new BufferedReader(input); 
 
-        String linha;
-            ArrayList<String> nomes = new ArrayList<>();
-            ArrayList<String> pontos = new ArrayList<>();
+        	String line;
+            ArrayList<String> names = new ArrayList<>();
+            ArrayList<String> points = new ArrayList<>();
 
             do{
-                linha = reader.readLine();
-                if(linha != null){
-                    String [] dadosBrutos = linha.split(";");
+            	line = reader.readLine();
+                if(line != null){
+                    String [] data = line.split(";");
                     
-                    for(int i = 0; i < dadosBrutos.length; i++){
+                    for(int i = 0; i < data.length; i++){
                         if(i%2 == 0){
-                            nomes.add(dadosBrutos[i]);
+                            names.add(data[i]);
                         }
                         if(i%2 == 1){
-                            pontos.add(dadosBrutos[i]);
+                            points.add(data[i]);
                         }
                     }
                 }
-            }while(linha != null);
+            }while(line != null);
 
             this.names = names;
             this.points = points;
             reader.close();
             
         }catch(Exception e){
-            System.out.println("Falha na leitura");
+            System.out.println("Reading Error");
         }
 
         try{
@@ -61,26 +61,26 @@ public class Scoreboard {
             this.fileWriter = new FileOutputStream("playerRank.txt");
             this.writer = new PrintWriter(fileWriter);
 
-            Player[] jogadores = new Player[names.size() + 1];
+            Player[] players = new Player[names.size() + 1];
             for(int i = 0; i < names.size() ; i++)
             {
-                jogadores[i] = new Player(names.get(i), Integer.parseInt(points.get(i)));
+                players[i] = new Player(names.get(i), Integer.parseInt(points.get(i)));
             }
-            jogadores[names.size()] = player; 
+            players[names.size()] = player; 
 
-            Arrays.sort(jogadores, Comparator.comparingInt(Player::getPoints).reversed());
+            Arrays.sort(players, Comparator.comparingInt(Player::getPoints).reversed());
 
-            for (Player jogadorAtualizado : jogadores) {
-                writer.println(jogadorAtualizado.getName() + ";" + jogadorAtualizado.getPoints());
+            for (Player updatedPlayer : players) {
+                writer.println(updatedPlayer.getName() + ";" + updatedPlayer.getPoints());
             }
             writer.close();
 
         }catch(Exception e){
-            System.out.println("erro na gravação");
+            System.out.println("Error");
         }
 
 
-        System.out.println("ranking atualizado com sucesso");
+        System.out.println("Complete Updated");
     }
 
     public Scoreboard(){
@@ -90,31 +90,31 @@ public class Scoreboard {
             this.input = new InputStreamReader(file);
             this.reader = new BufferedReader(input); 
 
-            String linha;
-                ArrayList<String> nomes = new ArrayList<>();
-                ArrayList<String> pontos = new ArrayList<>();
+            String line;
+                ArrayList<String> names = new ArrayList<>();
+                ArrayList<String> points = new ArrayList<>();
 
                 do{
-                    linha = reader.readLine();
-                    if(linha != null){
-                        String [] dadosBrutos = linha.split(";");
+                    line = reader.readLine();
+                    if(line != null){
+                        String [] data = line.split(";");
                         
-                        for(int i = 0; i < dadosBrutos.length; i++){
+                        for(int i = 0; i < data.length; i++){
                             if(i%2 == 0){
-                                nomes.add(dadosBrutos[i]);
+                                names.add(data[i]);
                             }
                             if(i%2 == 1){
-                                pontos.add(dadosBrutos[i]);
+                                points.add(data[i]);
                             }
                         }
                     }
-                }while(linha != null);
+                }while(line != null);
 
-                this.names = nomes;
-                this.points = pontos;
+                this.names = names;
+                this.points = points;
                 reader.close();
             }catch(Exception e){
-                System.out.println("Falha na leitura");
+                System.out.println("Reading Error");
             }
 
     }
